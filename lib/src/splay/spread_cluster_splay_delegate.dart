@@ -21,7 +21,7 @@ typedef SplayClusterWidgetBuilder = Widget Function(
 /// Displays splayed markers in a circle around their cluster.
 class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
   static const pi2 = pi * 2;
-  static const circleStartAngle = 0;
+  static const circleStartAngle = pi / 2;
 
   final SplayClusterWidgetBuilder? builder;
   final double clusterOpacity;
