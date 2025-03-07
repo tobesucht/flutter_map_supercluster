@@ -7,14 +7,12 @@ import 'package:flutter_map_supercluster/src/splay/displaced_marker.dart';
 /// position.
 class DisplacedMarkerOffset {
   final DisplacedMarker displacedMarker;
-  final Point<double> displacedOffset;
-  final Point<double> originalOffset;
-  final double scale;
+  final Point displacedOffset;
+  final Point originalOffset;
 
   const DisplacedMarkerOffset({
     required this.displacedMarker,
     required this.displacedOffset,
     required this.originalOffset,
-    this.scale = 1.0,
   });
 }

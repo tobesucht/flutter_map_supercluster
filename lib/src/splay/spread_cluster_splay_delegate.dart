@@ -27,8 +27,6 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
   final double clusterOpacity;
   final SplayLineOptions? splayLineOptions;
   final double distanceIncrement;
-  final double initialMarkerScale;
-  final Curve markerScaleCurve;
 
   const SpreadClusterSplayDelegate({
     /// Duration of the splay animation.
@@ -54,12 +52,6 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
 
     // the displacement radius is increased by this number depending on the markers count
     this.distanceIncrement = 4.0,
-    
-    /// The initial scale of markers when animation begins (0.0 to 1.0)
-    this.initialMarkerScale = 0.3,
-    
-    /// The curve applied to marker scaling animation
-    this.markerScaleCurve = Curves.easeOut,
   });
 
   @override
@@ -135,10 +127,6 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
     Point<num> Function(LatLng point) getPixelOffset,
     Point clusterPosition,
   ) {
-    // Calculate scale based on animation progress using the specific curve
-    final markerScale = initialMarkerScale + (1.0 - initialMarkerScale) * 
-        markerScaleCurve.transform(animationProgress);
-
     return displacedMarkers
         .map(
           (displacedMarker) => DisplacedMarkerOffset(
@@ -148,7 +136,6 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
                 animationProgress,
             originalOffset:
                 getPixelOffset(displacedMarker.originalPoint) - clusterPosition,
-            scale: markerScale, // Add the calculated scale
           ),
         )
         .toList();

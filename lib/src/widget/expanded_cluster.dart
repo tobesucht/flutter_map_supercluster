@@ -113,14 +113,4 @@ class ExpandedCluster {
     _clusterOpacityAnimation.dispose();
     animation.dispose();
   }
-
-  Widget buildMarker(DisplacedMarkerOffset markerOffset) {
-    final marker = markerOffset.displacedMarker.marker;
-    
-    // Apply scaling transformation
-    return Transform.scale(
-      scale: markerOffset.scale,
-      child: marker.child,
-    );
-  }
 }
