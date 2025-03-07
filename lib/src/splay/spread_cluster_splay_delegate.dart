@@ -63,8 +63,20 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
     ClusterDataBase? extraClusterData,
     double animationProgress,
   ) {
+    // Calculate the scale factor based on the maximum distance markers will travel
+    // This makes the cluster grow in proportion to the expanding circle
+    final baseDistance = distance;
+    final maxDistance = distance + (distanceIncrement * markerCount);
+    final distanceRatio = maxDistance / baseDistance;
+    
+    // Scale grows from 1.0 to distanceRatio as animation progresses
+    // Using a sine curve to create a more natural growth pattern
+    final scaleAmplitude = (distanceRatio - 1.0) * 0.5; // half the total growth
+    final scaleFactor = 1.0 + scaleAmplitude * (1.0 - cos(animationProgress * pi));
+    
+    Widget clusterWidget;
     if (builder != null) {
-      return builder!(
+      clusterWidget = builder!(
         context,
         position,
         markerCount,
@@ -72,7 +84,7 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
         animationProgress,
       );
     } else {
-      return Opacity(
+      clusterWidget = Opacity(
         opacity: 1 - ((1 - clusterOpacity) * animationProgress),
         child: clusterBuilder(
           context,
@@ -82,6 +94,12 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
         ),
       );
     }
+    
+    // Apply scaling to the cluster widget
+    return Transform.scale(
+      scale: scaleFactor,
+      child: clusterWidget,
+    );
   }
 
   @override
