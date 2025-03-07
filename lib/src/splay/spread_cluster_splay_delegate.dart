@@ -95,9 +95,15 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
       );
     }
     
-    // Apply scaling to the cluster widget
-    return Transform.scale(
-      scale: scaleFactor,
+    // Instead of applying Transform.scale here, create a custom ClusterWidgetSize
+    final scaledSize = Size(
+      widget.clusterWidgetSize.width * scaleFactor,
+      widget.clusterWidgetSize.height * scaleFactor
+    );
+    
+    // Pass the scaled size through context
+    return _ClusterSizeProvider(
+      size: scaledSize,
       child: clusterWidget,
     );
   }
@@ -276,4 +282,21 @@ class _DisplacementPainter extends CustomPainter {
       oldDelegate.splayLineOptions != splayLineOptions ||
       oldDelegate.offsets != offsets ||
       oldDelegate.centerOffset != centerOffset;
+}
+
+class _ClusterSizeProvider extends InheritedWidget {
+  final Size size;
+
+  const _ClusterSizeProvider({
+    Key? key,
+    required this.size,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
+
+  static _ClusterSizeProvider? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_ClusterSizeProvider>();
+  }
 }

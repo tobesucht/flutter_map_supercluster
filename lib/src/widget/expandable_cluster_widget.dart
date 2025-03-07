@@ -78,14 +78,20 @@ class ExpandableClusterWidget extends StatelessWidget {
                   mapRotationRad: mapCamera.rotationRad,
                 ),
               ),
-              ClusterWidget(
-                mapCamera: mapCamera,
-                cluster: expandedCluster.layerCluster,
-                builder: (context, latLng, count, data) =>
-                    expandedCluster.buildCluster(context, builder),
-                onTap: expandedCluster.isExpanded ? onCollapse : () {},
-                size: size,
-                alignment: clusterAlignment,
+              Positioned(
+                left: clusterPixelPosition.x - size.width / 2 * expandedCluster.scaleFactor,
+                top: clusterPixelPosition.y - size.height / 2 * expandedCluster.scaleFactor,
+                width: size.width * expandedCluster.scaleFactor,
+                height: size.height * expandedCluster.scaleFactor,
+                child: ClusterWidget(
+                  mapCamera: mapCamera,
+                  cluster: expandedCluster.layerCluster,
+                  builder: (context, latLng, count, data) =>
+                      expandedCluster.buildCluster(context, builder),
+                  onTap: expandedCluster.isExpanded ? onCollapse : () {},
+                  size: size,
+                  alignment: clusterAlignment,
+                ),
               ),
             ],
           ),
