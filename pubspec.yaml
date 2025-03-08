@@ -15,11 +15,11 @@ dependencies:
   equatable: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_map: ^7.0.2
+  flutter_map: ^8.1.0
   flutter_map_marker_popup: ^7.0.0
-  latlong2: ^0.9.0
+  latlong2: ^0.9.1
   provider: ^6.1.1
-  supercluster: ^3.0.1
+  supercluster: ^3.1.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1
