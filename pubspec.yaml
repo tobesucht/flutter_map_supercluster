@@ -11,12 +11,16 @@ environment:
   flutter: ">=3.10.0"
 
 dependencies:
+  flutter_map_marker_popup:
+    git:
+      url: https://github.com/tobesucht/flutter_map_marker_popup.git
+      ref: master
+
   async: ^2.11.0
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_map: ^8.1.0
-  flutter_map_marker_popup: ^7.0.0
   latlong2: ^0.9.1
   provider: ^6.1.1
   supercluster: ^3.1.0
